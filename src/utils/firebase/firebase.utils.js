@@ -21,12 +21,19 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
-  authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
-  projectId: 'crwn-clothing-db-98d4d',
-  storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
-  messagingSenderId: '626766232035',
-  appId: '1:626766232035:web:506621582dab103a4d08d6',
+  // apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+  // authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+  // projectId: 'crwn-clothing-db-98d4d',
+  // storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+  // messagingSenderId: '626766232035',
+  // appId: '1:626766232035:web:506621582dab103a4d08d6',
+
+  apiKey: "AIzaSyD1G7lHDqdYZKhl6tvgfeEcQD_FZM1hZ0Y",
+  authDomain: "react2023tutorial.firebaseapp.com",
+  projectId: "react2023tutorial",
+  storageBucket: "react2023tutorial.appspot.com",
+  messagingSenderId: "1070128102004",
+  appId: "1:1070128102004:web:fe131b9b2faa8b148d6f21"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -96,7 +103,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -115,3 +122,17 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+
+  export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChanged(
+        auth, 
+        (userAuth) => {
+          unsubscribe()
+          resolve(userAuth)
+        },
+        reject
+      )
+    })
+  }
